@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Liquidation Heatmap - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="logo">🔥 CryptoHeat</h1>
+                <p class="tagline">Real-time Liquidation Intelligence</p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-form" id="login-form">
+                <h2>Welcome Back</h2>
+                <p class="form-subtitle">Sign in to access your heatmap</p>
+                
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Sign In</button>
+                </form>
+                
+                <p class="form-switch">
+                    Don't have an account? 
+                    <a href="#" onclick="showSignup()">Create one</a>
+                </p>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="auth-form hidden" id="signup-form">
+                <h2>Create Account</h2>
+                <p class="form-subtitle">Join thousands of crypto traders</p>
+                
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signup-username">Username</label>
+                        <input type="text" id="signup-username" placeholder="Choose a username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Min. 8 characters" required minlength="8">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="favorite-crypto">Favorite Cryptocurrency</label>
+                        <select id="favorite-crypto" required>
+                            <option value="">Select your favorite</option>
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="SOL">Solana (SOL)</option>
+                            <option value="BNB">Binance Coin (BNB)</option>
+                            <option value="ADA">Cardano (ADA)</option>
+                            <option value="DOT">Polkadot (DOT)</option>
+                            <option value="MATIC">Polygon (MATIC)</option>
+                            <option value="AVAX">Avalanche (AVAX)</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Create Account</button>
+                </form>
+                
+                <p class="form-switch">
+                    Already have an account? 
+                    <a href="#" onclick="showLogin()">Sign in</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <h3>Real-time Data</h3>
+                <p>Live liquidation tracking across major exchanges</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <h3>Smart Insights</h3>
+                <p>AI-powered market analysis and predictions</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <h3>Lightning Fast</h3>
+                <p>Updates every 5 seconds with zero lag</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
