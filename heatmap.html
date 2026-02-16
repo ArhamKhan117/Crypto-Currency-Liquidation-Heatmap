@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Liquidation Heatmap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="heatmap.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="main-nav">
+            <div class="nav-left">
+                <span class="logo">🔥 CryptoHeat</span>
+            </div>
+            <div class="nav-right">
+                <!-- Logged in user info -->
+                <div class="user-info logged-in" id="user-info" style="display: none;">
+                    <span class="username"></span>
+                    <span class="favorite-badge"></span>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                </div>
+                
+                <!-- Guest user - show login button -->
+                <div class="guest-info" id="guest-info">
+                    <button class="profile-icon" onclick="showLoginModal()">
+                        <span class="icon">👤</span>
+                        <span class="text">Login</span>
+                    </button>
+                </div>
+                
+                <button class="theme-toggle" id="theme-toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </nav>
+        
+        <header>
+            <div class="header-content">
+                <h1>Liquidation Heatmap</h1>
+                <p class="subtitle">Real-time liquidation intensity across price levels</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Total Liquidations</span>
+                    <span class="stat-value" id="total-liq">$0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Current Price</span>
+                    <span class="stat-value" id="avg-price">$0</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Cryptocurrency</label>
+                <div class="crypto-selector">
+                    <button class="crypto-btn active" data-symbol="BTC">Bitcoin</button>
+                    <button class="crypto-btn" data-symbol="ETH">Ethereum</button>
+                    <button class="crypto-btn" data-symbol="SOL">Solana</button>
+                    <button class="crypto-btn" data-symbol="BNB">BNB</button>
+                </div>
+                <button class="favorite-btn" id="favorite-btn" onclick="toggleFavorite()">
+                    <span class="star">⭐</span>
+                    <span class="text">Mark as Favorite</span>
+                </button>
+            </div>
+
+            <div class="control-group">
+                <label>Timeframe</label>
+                <div class="timeframe-selector">
+                    <button class="time-btn" data-time="15m">15m</button>
+                    <button class="time-btn" data-time="1h">1h</button>
+                    <button class="time-btn active" data-time="4h">4h</button>
+                    <button class="time-btn" data-time="24h">24h</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>View Mode</label>
+                <div class="view-selector">
+                    <button class="view-btn active" data-view="combined">Combined</button>
+                    <button class="view-btn" data-view="longs">Longs Only</button>
+                    <button class="view-btn" data-view="shorts">Shorts Only</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-title">Liquidation Intensity</div>
+            <div class="legend-gradient">
+                <span class="legend-label">Low</span>
+                <div class="gradient-bar"></div>
+                <span class="legend-label">High</span>
+            </div>
+        </div>
+
+        <div class="heatmap-container">
+            <div class="price-axis" id="price-axis"></div>
+            <div class="heatmap-grid" id="heatmap-grid"></div>
+            <div class="time-axis" id="time-axis"></div>
+        </div>
+
+        <div class="insights">
+            <h3>Market Insights</h3>
+            <div class="insight-cards">
+                <div class="insight-card">
+                    <div class="insight-icon">🔥</div>
+                    <div class="insight-content">
+                        <div class="insight-title">Hottest Zone</div>
+                        <div class="insight-value" id="hot-zone">$0</div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">📊</div>
+                    <div class="insight-content">
+                        <div class="insight-title">Long/Short Ratio</div>
+                        <div class="insight-value" id="ls-ratio">0:0</div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">⚡</div>
+                    <div class="insight-content">
+                        <div class="insight-title">Peak Hour</div>
+                        <div class="insight-value" id="peak-hour">--:--</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tooltip" id="tooltip">
+        <div class="tooltip-header">
+            <span class="tooltip-time"></span>
+            <span class="tooltip-price"></span>
+        </div>
+        <div class="tooltip-body">
+            <div class="tooltip-row">
+                <span class="tooltip-label">Long Liquidations:</span>
+                <span class="tooltip-value long-value"></span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Short Liquidations:</span>
+                <span class="tooltip-value short-value"></span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total Volume:</span>
+                <span class="tooltip-value total-value"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="heatmap.js"></script>
+</body>
+</html>

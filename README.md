@@ -1,40 +1,46 @@
-# Bitcoin Liquidation Long/Short Tracker
+# Crypto Liquidation Heatmap
 
-A web app that tracks Bitcoin long and short liquidation data and shows it on a simple chart. Helps you see which side of the market is getting liquidated more.
+A web app that visualizes cryptocurrency liquidation data in a heatmap format. Shows liquidation intensity across different price levels and time periods for BTC, ETH, SOL, and BNB.
 
 ## Why I Built This
 
-I wanted to learn more about how crypto markets work, especially liquidations. I've heard traders talk about "long squeezes" and "short squeezes" but never really understood what that meant in terms of actual numbers. So I built this tool to visualize the data and make it easier to understand.
-
-Also, this was a good excuse to practice vanilla JavaScript and work with Chart.js without using React or any frameworks.
+I was looking at Coinglass liquidation heatmaps and thought it would be cool to build something similar. Wanted to understand how liquidations cluster around certain price levels and how that changes over time. Plus it was a good way to practice working with real-time data from Binance API.
 
 ## Features
 
-- Fetches Bitcoin liquidation data (currently using mock data for demo)
-- Separates long vs short liquidations
-- Shows total volumes and percentage difference
-- Bar chart visualization (green = longs, red = shorts)
-- Switch between 1h, 4h, and 24h timeframes
-- Dark theme that looks crypto-ish
-- Works on mobile and desktop
-- Basic error handling
+- Real-time price data from Binance API
+- Heatmap visualization showing liquidation intensity
+- 4 cryptocurrencies: Bitcoin, Ethereum, Solana, BNB
+- Multiple timeframes: 15m, 1h, 4h, 24h
+- View modes: Combined, Longs Only, Shorts Only
+- User authentication with favorite crypto feature
+- Dark/Light theme toggle
+- Market insights (hottest zone, long/short ratio, peak hour)
+- Interactive tooltips on hover
 
 ## Tech Stack
 
-- HTML/CSS/JavaScript (no frameworks)
-- Chart.js for the bar chart
-- Mock API data (ready to connect to real API like Coinglass)
+- HTML/CSS/JavaScript (vanilla, no frameworks)
+- Binance API for real-time prices
+- LocalStorage for user data
+- Google Fonts (Inter)
 
 ## Installation
 
-No installation needed! Just download the files.
+Just clone and open in browser:
+
+```bash
+git clone https://github.com/yourusername/crypto-liquidation-heatmap.git
+cd crypto-liquidation-heatmap
+```
 
 ## How to Run
 
-1. Open `index.html` in your browser (just double-click it)
-2. That's it!
+1. Open `index.html` in your browser
+2. You can browse as guest or create an account
+3. Select crypto and timeframe to view liquidations
 
-If you want to use a local server:
+Or use a local server:
 ```bash
 # Python
 python -m http.server 8000
@@ -43,54 +49,66 @@ python -m http.server 8000
 npx http-server
 ```
 
+Then go to `http://localhost:8000`
+
 ## How It Works
 
-1. App requests liquidation data from API (currently mock data)
-2. Data gets separated into longs and shorts
-3. Calculates totals for each side
-4. Percentage formula: `((longs - shorts) / (longs + shorts)) * 100`
-   - Positive = more longs liquidated (bearish)
-   - Negative = more shorts liquidated (bullish)
-5. Chart.js renders the bar chart
-6. Summary cards show the formatted numbers
+1. Fetches current price from Binance API every 5 seconds
+2. Generates liquidation data based on price ranges (±5% of current)
+3. Creates a 20x24 grid (20 price levels, 24 time intervals)
+4. Colors cells based on liquidation intensity (green = longs, red = shorts)
+5. Calculates market insights from the data
+6. User can login to save favorite crypto
 
-## Known Issues
-
-- Using mock data right now - needs real API integration
-- Only shows Bitcoin, could add other coins
-- No historical data or date picker
-- Percentage calculation doesn't account for position sizes
-- Could use some loading indicators
-
-## Future Ideas
-
-- Connect to real API (Coinglass, Binance, etc.)
-- Add more coins (ETH, SOL, etc.)
-- Historical data with date range
-- Show breakdown by exchange
-- Line chart for trends over time
-- Auto-refresh every minute
-- Export data to CSV
-- Alerts for big liquidations
-
-## Screenshots
-
-*Will add screenshots after deployment*
+The heatmap uses a normalized intensity scale (1-6) where darker colors mean higher liquidation volumes at that price/time.
 
 ## Project Structure
 
 ```
-bitcoin-liquidation-tracker/
-├── index.html          # Main HTML structure
-├── style.css           # Styling and dark theme
-├── script.js           # Application logic and data processing
-└── README.md           # This file
+crypto-liquidation-heatmap/
+├── index.html              # Login/signup page
+├── auth.css                # Authentication styling
+├── auth.js                 # Login/signup logic
+├── heatmap.html            # Main heatmap page
+├── heatmap.css             # Heatmap styling
+├── heatmap.js              # Heatmap logic and Binance API
+├── ARCHITECTURE.md         # Technical architecture docs
+├── CONTRIBUTING.md         # Contribution guidelines
+├── CHANGELOG.md            # Version history
+├── LICENSE                 # MIT License
+└── README.md               # This file
 ```
+
+## Known Limitations
+
+- Liquidation data is simulated (not real liquidation events)
+- Only supports 4 cryptocurrencies
+- LocalStorage for user data (not a real backend)
+- No historical data persistence
+- Binance API rate limits might affect updates
+
+## Future Improvements
+
+- Connect to real liquidation data API
+- Add more cryptocurrencies
+- Backend for user authentication
+- Historical data with date picker
+- Export heatmap as image
+- Price alerts and notifications
+- Mobile app version
+
+## Screenshots
+
+*Coming soon*
+
+## Contributing
+
+Feel free to open issues or submit PRs. This is a learning project so any feedback is appreciated.
 
 ## License
 
-MIT - feel free to use this for learning
+MIT License - see LICENSE file
 
 ---
 
-Built as a learning project to understand crypto market liquidations. Not financial advice!
+**Disclaimer:** This is for educational purposes only. Not financial advice. The liquidation data shown is simulated and not actual market data.
